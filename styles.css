@@ -1,8 +1,9 @@
 form {
     display: flex;
+    flex-direction: column;
     gap: 20px;
     padding: 20px;
-    flex-wrap: wrap;
+    /* flex-wrap: wrap; */
     align-items: center;
     justify-content: center;
     background-color: cornflowerblue;
