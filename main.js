@@ -1,8 +1,17 @@
 const form = document.querySelector("form")
+
 const email = document.getElementById("email")
 const emailError = document.querySelector("#email + span.error")
+
 const zipcode = document.getElementById("zipcode")
 const zipcodeError = document.querySelector("#zipcode + span.error")
+
+const password = document.querySelector("#password")
+const passwordError = document.querySelector("#password + span.error")
+
+const confirmPassword = document.querySelector("#confirm-password")
+const confirmPasswordError = document.querySelector("#confirm-password + span.error")
+
 
 function showEmailError() {
     if (email.validity.valueMissing) {
@@ -26,6 +35,34 @@ function showZipcodeError() {
     zipcodeError.className = "error active"
 }
 
+function showPasswordError() {
+    if (password.validity.valueMissing) {
+        passwordError.textContent = "You need to enter a password"
+    } else if (password.validity.patternMismatch) {
+        passwordError.textContent = "Code must confirm to US pattern e.g. 12345 or 12345-1234"
+    }
+
+    passwordError.className = "error active"
+}
+
+function showConfirmPasswordError() {
+    if (confirmPassword.validity.valueMissing) {
+        confirmPasswordError.textContent = "You need to enter a password"
+    } 
+    if (confirmPassword.value != password.value) {
+        confirmPasswordError.textContent = "Your passwords must match!"
+        console.log("test")
+    }
+
+    confirmPasswordError.className = "error active"
+}
+
+window.addEventListener("load", () => {
+    const isValid = confirmPassword.value === "" || confirmPassword.value == password.value
+    confirmPassword.className = isValid ? "valid" : "invalid"
+    console.log(isValid)
+})
+
 email.addEventListener("input", (event) => {
     if (email.validity.valid) {
         emailError.textContent = ""
@@ -44,12 +81,39 @@ zipcode.addEventListener("input", (event) => {
     }
 })
 
+password.addEventListener("input", (event) => {
+    if (password.validity.valid) {
+        passwordError.textContent = ""
+        passwordError.className = "error"
+    } else {
+        showPasswordError()
+    }
+})
+
+confirmPassword.addEventListener("input", () => {
+    const isValid = confirmPassword.value === "" || confirmPassword.value == password.value
+    console.log(isValid)
+    if (isValid) {
+        confirmPassword.className = "valid";
+        confirmPasswordError.textContent = "";
+        confirmPasswordError.className = "error";
+    } else {
+        confirmPassword.className = "invalid";
+        confirmPasswordError.className = "error active";
+        confirmPasswordError.textContent = "Passwords must be the same!";
+    }
+})
+
 form.addEventListener("submit", (event) => {
     if (!email.validity.valid) {
         showEmailError();
         event.preventDefault(); // Prevents form from being sent
     }
     if (!zipcode.validity.valid) {
+        showZipcodeError();
+        event.preventDefault();
+    }
+    if (!password.validity.valid) {
         showZipcodeError();
         event.preventDefault();
     }
