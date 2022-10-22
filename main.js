@@ -1,8 +1,10 @@
 const form = document.querySelector("form")
 const email = document.getElementById("email")
 const emailError = document.querySelector("#email + span.error")
+const zipcode = document.getElementById("zipcode")
+const zipcodeError = document.querySelector("#zipcode + span.error")
 
-function showError() {
+function showEmailError() {
     if (email.validity.valueMissing) {
         emailError.textContent = "You need to enter an email address"
     } else if (email.validity.typeMismatch) {
@@ -14,9 +16,20 @@ function showError() {
     emailError.className = "error active"
 }
 
+function showZipcodeError() {
+    if (zipcode.validity.valueMissing) {
+        zipcodeError.textContent = "You need to enter a zipcode"
+    } else if (zipcode.validity.patternMismatch) {
+        zipcodeError.textContent = "Code must confirm to US pattern e.g. 12345 or 12345-1234"
+    }
+
+    zipcodeError.className = "error active"
+}
+
+
 form.addEventListener("submit", (event) => {
     if (!email.validity.valid) {
-        showError();
+        showEmailError();
         event.preventDefault(); // Prevents form from being sent
     }
 })
@@ -26,7 +39,15 @@ email.addEventListener("input", (event) => {
         emailError.textContent = ""
         emailError.className = "error"
     } else {
-        showError()
+        showEmailError()
     }
 })
 
+zipcode.addEventListener("input", (event) => {
+    if (zipcode.validity.valid) {
+        zipcodeError.textContent = ""
+        zipcodeError.className = "error"
+    } else {
+        showZipcodeError()
+    }
+})

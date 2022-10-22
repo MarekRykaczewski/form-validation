@@ -27,7 +27,8 @@
         </div>
         <div>
             <span> Zip Code </span>
-            <input type="text" pattern="(^\d{5}$)|(^\d{9}$)|(^\d{5}-\d{4}$)">
+            <input id="zipcode" type="text" pattern="(^\d{5}$)|(^\d{9}$)|(^\d{5}-\d{4}$)" required>
+            <span class="error"></span>
         </div>
         <div>
             <span> Password </span>
