@@ -26,14 +26,6 @@ function showZipcodeError() {
     zipcodeError.className = "error active"
 }
 
-
-form.addEventListener("submit", (event) => {
-    if (!email.validity.valid) {
-        showEmailError();
-        event.preventDefault(); // Prevents form from being sent
-    }
-})
-
 email.addEventListener("input", (event) => {
     if (email.validity.valid) {
         emailError.textContent = ""
@@ -49,5 +41,16 @@ zipcode.addEventListener("input", (event) => {
         zipcodeError.className = "error"
     } else {
         showZipcodeError()
+    }
+})
+
+form.addEventListener("submit", (event) => {
+    if (!email.validity.valid) {
+        showEmailError();
+        event.preventDefault(); // Prevents form from being sent
+    }
+    if (!zipcode.validity.valid) {
+        showZipcodeError();
+        event.preventDefault();
     }
 })
