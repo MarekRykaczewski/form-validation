@@ -26,6 +26,15 @@ input:focus:invalid {
     outline: none;
   }
 
+input:valid {
+    border-color: rgb(0, 153, 3);
+    background-color: rgb(221, 255, 232);
+  }
+
+input:focus:valid {
+    outline: none;
+  }
+
 .error {
   width: 100%;
   padding: 0;

@@ -38,10 +38,7 @@ function showZipcodeError() {
 function showPasswordError() {
     if (password.validity.valueMissing) {
         passwordError.textContent = "You need to enter a password"
-    } else if (password.validity.patternMismatch) {
-        passwordError.textContent = "Code must confirm to US pattern e.g. 12345 or 12345-1234"
-    }
-
+    } 
     passwordError.className = "error active"
 }
 
@@ -49,10 +46,6 @@ function showConfirmPasswordError() {
     if (confirmPassword.validity.valueMissing) {
         confirmPasswordError.textContent = "You need to enter a password"
     } 
-    if (confirmPassword.value != password.value) {
-        confirmPasswordError.textContent = "Your passwords must match!"
-        console.log("test")
-    }
 
     confirmPasswordError.className = "error active"
 }
@@ -60,7 +53,7 @@ function showConfirmPasswordError() {
 window.addEventListener("load", () => {
     const isValid = confirmPassword.value === "" || confirmPassword.value == password.value
     confirmPassword.className = isValid ? "valid" : "invalid"
-    console.log(isValid)
+    confirmPassword.setCustomValidity("Invalid field")
 })
 
 email.addEventListener("input", (event) => {
@@ -92,15 +85,16 @@ password.addEventListener("input", (event) => {
 
 confirmPassword.addEventListener("input", () => {
     const isValid = confirmPassword.value === "" || confirmPassword.value == password.value
-    console.log(isValid)
     if (isValid) {
         confirmPassword.className = "valid";
         confirmPasswordError.textContent = "";
         confirmPasswordError.className = "error";
+        confirmPassword.setCustomValidity("")
     } else {
         confirmPassword.className = "invalid";
         confirmPasswordError.className = "error active";
         confirmPasswordError.textContent = "Passwords must be the same!";
+        confirmPassword.setCustomValidity("Invalid field")
     }
 })
 
